@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pembayaran</title>
+    <style>
+      :root {
+        --primary: #a67c52;
+      }
+
+      body {
+        background-color: #121212;
+        color: white;
+        font-family: sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      .payment-container {
+        max-width: 500px;
+        margin: 3rem auto;
+        background-color: #1b1b1b;
+        padding: 2rem;
+        border-radius: 10px;
+        border: 1px solid #513c28;
+        color: white;
+      }
+
+      .payment-container h2 {
+        text-align: center;
+        color: var(--primary);
+        margin-bottom: 1.5rem;
+      }
+
+      .payment-total {
+        font-size: 1.3rem;
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .payment-options {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .payment-options button {
+        background-color: var(--primary);
+        border: none;
+        padding: 1rem;
+        color: white;
+        font-size: 1.1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      .payment-options button:hover {
+        background-color: #8d653f;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="payment-container">
+      <h2>Pembayaran</h2>
+      <div class="payment-total" id="totalAmount">Total: Rp 0</div>
+      <div class="payment-options">
+        <button onclick="selectPayment('QRIS')">Bayar dengan QRIS</button>
+        <button onclick="selectPayment('M-Banking')">
+          Bayar via M-Banking
+        </button>
+        <button onclick="selectPayment('DANA')">Bayar via DANA</button>
+        <button onclick="selectPayment('GoPay')">Bayar via GoPay</button>
+      </div>
+    </div>
+
+    <script>
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const total = cart.reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0
+      );
+      document.getElementById(
+        "totalAmount"
+      ).textContent = `Total: Rp ${total.toLocaleString()}`;
+
+      function selectPayment(method) {
+        alert(
+          `Kamu memilih metode pembayaran: ${method}\n\nSilakan lanjutkan proses melalui aplikasi ${method}.`
+        );
+        localStorage.removeItem("cart");
+        window.location.href = "index.html"; // kembali ke halaman utama
+      }
+    </script>
+  </body>
+</html>
